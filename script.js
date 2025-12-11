@@ -8,10 +8,18 @@ const input = document.getElementById("command-input");
 function appendLine(text, type = "output") {
   const line = document.createElement("span");
   line.className = `line ${type}`;
-  line.textContent = text;
+
+  // auto-linkify URLs
+  const linked = text.replace(
+    /(https?:\/\/[^\s]+)/g,
+    `<a href="$1" target="_blank">$1</a>`
+  );
+
+  line.innerHTML = linked;
   terminal.insertBefore(line, terminal.querySelector(".prompt-line"));
   scrollToBottom();
 }
+
 
 function handleTabCompletion() {
   const value = input.value;
