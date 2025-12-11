@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Name | Terminal Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="terminal-wrapper">
+    <div class="terminal-header">
+      <div class="traffic-lights">
+        <div class="traffic-light red"></div>
+        <div class="traffic-light yellow"></div>
+        <div class="traffic-light green"></div>
+      </div>
+      <div class="terminal-title">portfolio@aaron-david: ~</div>
+      <div style="width: 40px;"></div>
+    </div>
+
+    <div class="terminal-body" id="terminal">
+      <!-- Initial boot messages -->
+      <span class="line system">booting virtual shell...</span>
+      <span class="line system">loading developer profile... done.</span>
+      <span class="line system">type <span class="keyword">help</span> to see available commands.</span>
+
+      <!-- Prompt -->
+      <div class="prompt-line">
+        <span class="prompt-label">visitor@portfolio:~$</span>
+        <input id="command-input" type="text" autocomplete="off" spellcheck="false"
+               placeholder="type a command (e.g. 'help')" />
+      </div>
+
+      <div class="hint">
+        <span>tip: press <strong>Enter</strong> to run a command</span>
+        <span class="hint-commands">commands: help · about · projects · contact · skills · clear</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
