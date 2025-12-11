@@ -1,3 +1,16 @@
+const FILE_MAP = {
+  "about.txt": "about",
+  "skills.txt": "skills",
+  "projects.txt": "projects",
+  "ugracing.txt": "ugracing",
+  "experience.txt": "experience",
+  "education.txt": "education",
+  "achievements.txt": "achievements",
+  "cv.pdf": "links"
+};
+
+const FILE_NAMES = Object.keys(FILE_MAP);
+
 const COMMANDS = {
   help: {
     description: "List available commands",
@@ -7,6 +20,7 @@ const COMMANDS = {
       "  core:",
       "    about      detailed about section",
       "    bio        short personal summary",
+      "    whoami     identity info",
       "    skills     technical skills & domains",
       "    stack      core robotics / dev stack",
       "    projects   selected technical projects",
@@ -25,8 +39,70 @@ const COMMANDS = {
       "    ascii      tiny ascii banner",
       "",
       "  system:",
+      "    ls           list virtual files",
+      "    cat          read a virtual file",
       "    clear      clear the screen",
       "    help       show this help message",
+      "",
+      "Tip: You can use tab-completion for commands and filenames!"
+    ]
+  },
+
+  ls: {
+    description: "list virtual files",
+    run: () => [
+      ".",
+      "..",
+      ...FILE_NAMES,
+      ""
+    ]
+  },
+  
+  cat: {
+    description: "display a virtual file",
+    run: (args = []) => {
+      const file = (args[0] || "").toLowerCase();
+  
+      if (!file) {
+        return [
+          "usage: cat <filename>",
+          "try: cat about.txt",
+          ""
+        ];
+      }
+  
+      if (FILE_MAP[file]) {
+        const cmdName = FILE_MAP[file];
+        const target = COMMANDS[cmdName];
+        if (!target) {
+          return [ `cat: ${file}: mapped command '${cmdName}' not found`, "" ];
+        }
+        return target.run();
+      }
+  
+      return [ `cat: ${file}: no such file`, "" ];
+    }
+  },
+  
+  vim: {
+    description: "opens vim (allegedly)",
+    run: () => [
+      "vim?",
+      "really??",
+      "",
+      "no.",
+      ""
+    ]
+  },
+
+  whoami: {
+    description: "show identity info",
+    run: () => [
+      "whoami:",
+      "  aaron david",
+      "  cs student · autonomous systems developer",
+      "  specialising in slam, planning, and robotics software",
+      "  currently: head software engineer @ ugracing driverless",
       ""
     ]
   },
@@ -91,6 +167,7 @@ const COMMANDS = {
     description: "Short personal summary",
     run: () => [
       "bio:",
+      "  computer science student at the university of glasgow.",
       "  building autonomous systems · specialising in SLAM + planning.",
       "  head software engineer for UGRacing's driverless team.",
       "  interested in robotics, optimisation, simulation, and high-performance code.",
@@ -115,7 +192,7 @@ const COMMANDS = {
       "links:",
       "  github:   https://github.com/aarondav1d18",
       "  linkedin: https://www.linkedin.com/in/aarondav1d",
-      "  cv:       <add your hosted CV link here>",
+      "  cv:       TODO: Will be up on github",
       ""
     ]
   },
@@ -132,12 +209,12 @@ const COMMANDS = {
   ascii: {
     description: "Print tiny ascii banner",
     run: () => [
-      "    ___                ",
-      "   / _ |__ _  ___ _ _  ",
-      "  / __ /  ' \\/ _ \\ ' \\ ",
-      " /_/ |_/_/_/_/ .__/_||_|",
-      "            /_/         ",
-      "aaron david — autonomy, slam, path planning",
+      "    /\                          ",
+      "   /  \\   __ _ _ __ ___  _ __  ",
+      "  / /\\ \\ / _` | '__/ _ \\| '_ \\ ",
+      " / ____ \\ (_| | | | (_) | | | |",
+      "/_/    \\_\\__,_|_|  \\___/|_| |_|",
+      "\"aaron david — student, autonomy, slam, path planning\",",
       ""
     ]
   },

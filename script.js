@@ -24,43 +24,52 @@ function appendLine(text, type = "output") {
 function handleTabCompletion() {
   const value = input.value;
 
-  // nothing typed -> nothing to complete
   if (!value.trim()) return;
 
-  // Only autocomplete the first "word" (the command)
   const parts = value.split(" ");
   const rawCmd = parts[0];
+  const cmd = rawCmd.toLowerCase();
   const rest = parts.slice(1).join(" ");
 
-  if (parts.length > 1) {
-    // Had issues with a complete command printing possible commands, so disabled for now
-    // const commandNames = Object.keys(COMMANDS);
-    // const matches = commandNames.filter(name => name.startsWith(rawCmd.toLowerCase()));
-    // if (matches.length === 0) return;
-    // appendLine("possible commands:", "system");
-    // matches.forEach(cmd => appendLine("  " + cmd, "system"));
-    // scrollToBottom();
+  // If we're still typing the command name
+  if (parts.length === 1) {
+    const commandNames = Object.keys(COMMANDS);
+    const matches = commandNames.filter(name => name.startsWith(cmd));
+
+    if (matches.length === 0) return;
+
+    if (matches.length === 1) {
+      input.value = matches[0] + " ";
+      return;
+    }
+
+    appendLine(matches.join("   "), "system");
+    scrollToBottom();
     return;
   }
 
-  const partial = rawCmd.toLowerCase();
-  const commandNames = Object.keys(COMMANDS);
-  const matches = commandNames.filter(name => name.startsWith(partial));
+  // If command is 'cat', autocomplete filenames
+  if (cmd === "cat") {
+    const filePartial = (parts[1] || "").toLowerCase();
+    const matches = FILE_NAMES.filter(name => name.startsWith(filePartial));
 
-  if (matches.length === 0) {
-    // nothing matches, silently ignore
+    if (matches.length === 0) return;
+
+    if (matches.length === 1) {
+      // rebuild input: "cat <completed>"
+      input.value = `cat ${matches[0]}`;
+      return;
+    }
+
+    appendLine(matches.join("   "), "system");
+    scrollToBottom(); 
     return;
   }
-  if (matches.length === 1) {
-    // Single match: autocomplete and add a trailing space
-    input.value = matches[0] + (rest ? " " + rest : " ");
-    return;
-  }
 
-  // Multiple matches: print them as options, like a real shell
-  appendLine(matches.join("   "), "system");
-  scrollToBottom();
+  // For other commands with args, do nothing (for now)
+  return;
 }
+
 
 
 function clearOutput() {
@@ -80,11 +89,13 @@ function handleCommand(rawValue) {
 
   // Print the command itself
   appendLine(`visitor@portfolio:~$ ${value}`, "command");
-  // if the command is in the command at any point ^C, just return
   if (value.includes("^C")) return;
 
-  const [cmd] = value.split(" ");
-  const command = COMMANDS[cmd.toLowerCase()];
+  const parts = value.split(" ");
+  const cmd = parts[0].toLowerCase();
+  const args = parts.slice(1);
+
+  const command = COMMANDS[cmd];
 
   if (!command) {
     appendLine(`command not found: '${cmd}'`, "error");
@@ -92,11 +103,12 @@ function handleCommand(rawValue) {
     return;
   }
 
-  const output = command.run();
+  const output = command.run(args);
   if (Array.isArray(output)) {
     output.forEach(line => appendLine(line, "output"));
   }
 }
+
 
 input.addEventListener("keydown", (event) => {
 // add ctrl + c to clear input

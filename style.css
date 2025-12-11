@@ -151,6 +151,7 @@ body {
 
 #command-input::placeholder {
   color: rgba(148, 163, 184, 0.6);
+  min-width: 0;
 }
 
 .hint {
@@ -193,10 +194,29 @@ a:hover {
   --real-height: 100vh;
 }
 
+/* Mobile tweaks */
 @media (max-width: 700px) {
   .terminal-wrapper {
     height: var(--real-height);
+    border-radius: 0;
+  }
+
+  .terminal-body {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .line {
+    /* stop preserving giant indentation on mobile */
+    white-space: normal;
+    word-break: break-word;
+    font-size: 0.8rem;
+  }
+
+  .prompt-line {
+    gap: 0.3rem;
+  }
+
+  .prompt-label {
+    font-size: 0.75rem;
   }
 }
-
-
