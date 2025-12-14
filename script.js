@@ -84,6 +84,7 @@ function scrollToBottom() {
 }
 
 function handleCommand(rawValue) {
+  
   const value = rawValue.trim();
   if (!value) return;
 
@@ -117,6 +118,14 @@ input.addEventListener("keydown", (event) => {
     //append ^C to current line
     input.value += "^C";
     handleCommand(input.value);
+    input.value = "";
+    return;
+  }
+  // little joke for if user types sudo rm -rf /
+  if (event.key === "Enter" && input.value.trim() === "sudo rm -rf /") {
+    event.preventDefault();
+    appendLine(`visitor@portfolio:~$ sudo rm -rf /`, "command");
+    appendLine(`no... please dont not do that`, "error");
     input.value = "";
     return;
   }

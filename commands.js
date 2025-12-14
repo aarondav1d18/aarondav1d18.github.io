@@ -11,7 +11,17 @@ const FILE_MAP = {
 
 const FILE_NAMES = Object.keys(FILE_MAP);
 
+// This is not a very practical way to store the data / commands,
+// but it works for this so im going to just keep it like this for now.
 const COMMANDS = {
+  sudo: {
+    description: "execute a command as superuser (not really)",
+    run: () => [
+        "You dont have sudo privileges here.",
+        "This will be reported to the system administrator.",
+        ""
+    ]
+  },
   help: {
     description: "List available commands",
     run: () => [
@@ -90,11 +100,20 @@ const COMMANDS = {
       "vim?",
       "really??",
       "",
-      "no.",
+      "no... I dont think so. Try nano instead.",
       ""
     ]
   },
-
+  nano: {
+    description: "opens nano (not really)",
+    run: () => [
+      "nano?",
+      "still no...",
+      "",
+      "this is only a portfolio website :)",
+      ""
+    ]
+  },
   whoami: {
     description: "show identity info",
     run: () => [
@@ -119,8 +138,8 @@ const COMMANDS = {
       "",
       "  summary: Computer Science student focused on autonomous racing systems,",
       "           SLAM, and path planning on UGRacing's driverless Formula",
-      "           Student team, with experience leading a 90k-line C++/Python",
-      "           codebase and mentoring junior developers.",
+      "           Student team, with experience leading a large C++/Python",
+      "           codebase and mentoring new recruits.",
     ]
   },
 
@@ -323,10 +342,18 @@ const COMMANDS = {
       "        - Geometric heuristics, intersection checks, neighbour detection",
       "        - Integrated with NURBS planner and validated in simulation",
       "",
-      "  [4] UGRacing Driverless (see 'ugracing')",
-      "      summary: Long-term role progression from Path Planning Engineer",
-      "               to Head of Path Planning to Head Software Engineer.",
-      ""
+      "  [4] Personal Portfolio Website (HTML, CSS, JS)",
+      "      summary: This very website! A terminal-style interactive portfolio",
+      "               built with vanilla JS, HTML, and CSS.",
+      "  [5] ECG Signal Analysis and Visualisation (Python, C++)",
+      "      summary: A project focused on the analysis and visualisation of ECG signals.",
+      "      This has been done using Python for data processing and C++ for visualisation",
+      "      and data parsing. This project is apart of my university coursework for a team project.",
+      "      highlights:",
+      "        - Implemented signal processing algorithms for noise reduction",
+      "          and feature extraction",
+      "        - Developed interactive visualisations using Qt5 and C++",
+      "        - Validated results with clinical data"
     ]
   },
 
@@ -352,7 +379,7 @@ const COMMANDS = {
       "    2023–present",
       "      - Led development of autonomous race car software (C++/Python, ROS2).",
       "      - Managed 3 subteams: Perception · Path Planning · Simulation.",
-      "      - Mentored juniors and ran onboarding workshops.",
+      "      - Mentored new recruits and ran onboarding workshops.",
       "",
       "  Home Bargains — Store Assistant",
       "    2022–2023",
