@@ -25,7 +25,7 @@ export function createCommands(api) {
         "    projects   selected technical projects",
         "    ugracing   UGRacing driverless roles",
         "    contact    how to reach me",
-        "    links      external profiles & cv link",
+        "    links      external profiles",
         "",
         "  background:",
         "    experience work & leadership experience",
