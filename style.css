@@ -69,6 +69,18 @@ a:hover {
   border-radius: 999px;
 }
 
+.terminal-hint {
+  position: absolute;
+  color: rgba(127, 138, 150, 0.55);
+  font-size: 1.0rem;
+  line-height: 0;
+  pointer-events: none;
+  white-space: pre;
+  display: none;
+  transition: opacity 80ms ease;
+}
+
+
 .line {
   display: block;
   font-size: 0.9rem;
@@ -484,5 +496,8 @@ a:hover {
 
   .prompt-label {
     font-size: 0.75rem;
+  }
+  .terminal-hint {
+    font-size: 0.8rem;
   }
 }
