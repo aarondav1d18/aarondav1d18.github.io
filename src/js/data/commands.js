@@ -221,7 +221,6 @@ export function createCommands(api) {
         "links:",
         "  github:   https://github.com/aarondav1d18",
         "  linkedin: https://www.linkedin.com/in/aarondav1d",
-        "  cv:       TODO: Will be up on github",
         ""
       ]
     },
