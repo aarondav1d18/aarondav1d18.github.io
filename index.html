@@ -5,41 +5,93 @@
   <title>Your Name | Terminal Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
-  <script src="commands.js"></script>
-  <script src="script.js" defer></script>
+  <script type="module" src="src/js/app.js"></script>
 </head>
 <body>
-  <div class="terminal-wrapper">
-    <div class="terminal-header">
-      <div class="traffic-lights">
-        <div class="traffic-light red"></div>
-        <div class="traffic-light yellow"></div>
-        <div class="traffic-light green"></div>
-      </div>
-      <div class="terminal-title">portfolio@aaron-david: ~</div>
-      <div style="width: 40px;"></div>
+  <div class="desktop" id="desktop">
+    <div class="topbar">
+      <div class="topbar-left">portfolioOS</div>
+      <div class="topbar-right" id="clock"></div>
     </div>
 
-    <div class="terminal-body" id="terminal">
-      <!-- Initial boot messages -->
-      <span class="line system">booting virtual shell...</span>
-      <span class="line system">loading developer profile... done.</span>
-      <span class="line system">type <span class="keyword">help</span> to see available commands.</span>
+    <div class="desktop-icons">
+      <button class="icon" data-open="files">
+        <div class="icon-img">
+          <img src="icons/file.png" alt="" draggable="false" />
+        </div>
+        <div class="icon-label">Files</div>
+      </button>
 
-      <!-- Prompt -->
-      <div class="prompt-line">
-        <span class="prompt-label">visitor@portfolio:~$</span>
-        <input id="command-input" type="text" autocomplete="off" spellcheck="false"
-               placeholder="type a command (e.g. 'help')" />
-      </div>
-
-      <div class="hint">
-        <span>tip: press <strong>Enter</strong> to run a command</span>
-        <span class="hint-commands">
-          commands: help · about · bio · projects · ugracing · skills · stack · links · contact
-        </span>
-      </div>
+      <button class="icon" data-open="terminal">
+        <div class="icon-img">⌨️</div>
+        <div class="icon-label">Terminal</div>
+      </button>
     </div>
+
+    <section class="window" id="win-terminal" data-win="terminal">
+      <div class="window-header">
+        <div class="traffic-lights">
+          <button class="traffic-light red" data-close="terminal" aria-label="Close"></button>
+          <div class="traffic-light yellow"></div>
+          <div class="traffic-light green"></div>
+        </div>
+        <div class="window-title">Terminal</div>
+      </div>
+
+      <div class="terminal-body" id="terminal">
+        <span class="line system">booting virtual shell...</span>
+        <span class="line system">loading developer profile... done.</span>
+        <span class="line system">type <span class="keyword">help</span> to see available commands.</span>
+
+        <div class="prompt-line">
+          <span class="prompt-label">visitor@portfolio:~$</span>
+          <input id="command-input" type="text" autocomplete="off" spellcheck="false"
+                placeholder="type a command (e.g. 'help')" />
+        </div>
+
+        <div class="hint">
+          <span>tip: press <strong>Enter</strong> to run a command</span>
+          <span class="hint-commands">
+            commands: help · about · bio · projects · ugracing · skills · stack · links · contact
+          </span>
+        </div>
+      </div>
+
+      <div class="window-resizer" aria-hidden="true"></div>
+    </section>
+
+    <section class="window" id="win-files" data-win="files">
+      <div class="window-header">
+        <div class="traffic-lights">
+          <button class="traffic-light red" data-close="files" aria-label="Close"></button>
+          <div class="traffic-light yellow"></div>
+          <div class="traffic-light green"></div>
+        </div>
+        <div class="window-title">Files</div>
+      </div>
+
+      <div class="files-body">
+        <div class="files-toolbar">
+          <span class="files-path">~/files</span>
+        </div>
+
+        <div class="files-grid" id="files-list" role="listbox" aria-label="Files"></div>
+      </div>
+    </section>
+
+    <section class="window" id="win-viewer" data-win="viewer">
+      <div class="window-header">
+        <div class="traffic-lights">
+          <button class="traffic-light red" data-close="viewer" aria-label="Close"></button>
+          <div class="traffic-light yellow"></div>
+          <div class="traffic-light green"></div>
+        </div>
+        <div class="window-title" id="viewer-title">Viewer</div>
+      </div>
+
+      <pre class="viewer-body" id="viewer-body">Click a file icon or open one from Files.</pre>
+      <div class="window-resizer" aria-hidden="true"></div>
+    </section>
   </div>
 </body>
 </html>
